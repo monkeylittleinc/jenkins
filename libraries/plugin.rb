@@ -299,6 +299,8 @@ EOH
     # @option opts [Boolean] :install_deps indicates a plugins dependencies should be installed
     #
     def install_plugin_from_url(source_url, plugin_name, plugin_version = nil, opts = {})
+      source_url = source_url.gsub('http://updates.jenkins-ci.org/download', node['jenkins']['master']['mirror'])
+
       version = plugin_version || Digest::MD5.hexdigest(source_url)
 
       # Use the remote_file resource to download and cache the plugin (see
